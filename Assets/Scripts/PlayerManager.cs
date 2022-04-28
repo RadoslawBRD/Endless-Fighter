@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Timers;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
     public MovementScript mv;
-
+    private static Timer aTimer;
 
         //Stats
     public float moveSpeed = 100f;
-    public float health = 100f;
+    float maxHealth = 100;
+    public float health;
     float damage = 100f;
     float money = 0;
 
@@ -31,8 +34,18 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        
+        health = maxHealth;
+
+        aTimer = new System.Timers.Timer();
+        aTimer.Interval = 2000; //ms
+        aTimer.Elapsed += OnTimedEvent;
+
+        aTimer.AutoReset = true;
+        //aTimer.Enabled = true;
+
+
     }
+
 
     // Update is called once per frame
     void FixedUpdate()
@@ -40,16 +53,19 @@ public class PlayerManager : MonoBehaviour
         
         mv.moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
         GameManager.instance.playerPosition = this.transform.position;
-    }            
-
+    }
+    private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
+    {
+        Attack();
+    }
 
     void Attack()
     {
-
+        Debug.Log("atakuje");
 
 
     }
-    void getDamage(float _value)
+    public void getDamage(float _value)
     {
         health -= _value;
     }
