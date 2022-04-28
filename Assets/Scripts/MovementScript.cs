@@ -5,7 +5,6 @@ using UnityEngine;
 public class MovementScript : MonoBehaviour
 {
 
-    public float moveSpeed = 100f;
     public Vector2 moveInput;     
     private Rigidbody2D rb;
 
@@ -19,7 +18,7 @@ public class MovementScript : MonoBehaviour
     void FixedUpdate()
     {
         //rb.MovePosition(rb.position + (moveInput * moveSpeed * Time.fixedDeltaTime));
-        rb.AddForce(moveInput * moveSpeed * Time.deltaTime);
+        rb.AddForce(moveInput * Time.deltaTime);
     }
     void Update()
     {
