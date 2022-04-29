@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -10,20 +11,25 @@ public class Enemy : MonoBehaviour
     int nextId = 0;
     private Rigidbody2D rb;
     public Vector2 target;
+    private static Timer aTimer;
 
-        //Stats
+    //Stats
     public float moveSpeed = 100f;
     public float health = 100f;
     float damage = 100f;
     float cashValue = 10f;
     float maximumAproachDistance = 0.5f;
     float attackRange;
-
+    float attackSpeed = 1000f;
 
     void Start()
     {
         //initial stat setup
         attackRange = maximumAproachDistance + 0.1f;
+        aTimer = new System.Timers.Timer();
+        aTimer.Interval = attackSpeed; //ms
+        aTimer.Elapsed += OnTimedEvent;
+        aTimer.AutoReset = true;
 
         id = nextId;
         nextId++; 
@@ -35,10 +41,10 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) < attackRange)
+        /*if (Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) < attackRange)
         {
             Attack();
-        }
+        }*/
     }
     private void FixedUpdate()
     {
@@ -47,7 +53,12 @@ public class Enemy : MonoBehaviour
 
         //transform.position = Vector2.MoveTowards(transform.position, GameManager.instance.playerPosition, 1f);
         if(Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) > maximumAproachDistance)
-         rb.AddForce(WherePlayer(GameManager.instance.playerPosition)*-1 * moveSpeed * Time.fixedDeltaTime); // -1 bo nie chce mi siê odwracaæ return w WherePlayer
+            rb.AddForce(WherePlayer(GameManager.instance.playerPosition)*-1 * moveSpeed * Time.fixedDeltaTime); // -1 bo nie chce mi siê odwracaæ return w WherePlayer
+    }
+
+    private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
+    {
+        Attack();
     }
     private Vector2 WherePlayer(Vector2 _playerPosition)
     {
@@ -64,13 +75,24 @@ public class Enemy : MonoBehaviour
     }
     void Attack()
     {
+        PlayerManager.instance.getDamage(10f);
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-
+            aTimer.Enabled = true;
         }
+
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        aTimer.Enabled = false;
+
+    }
+    public void getDamage(float _value)
+    {
+        health -= _value;
     }
 }
