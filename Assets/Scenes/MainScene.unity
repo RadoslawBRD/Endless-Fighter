@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 83370209}
   m_Layer: 0
   m_Name: Enemy(Clone)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -759,6 +759,10 @@ PrefabInstance:
     - target: {fileID: 8492068602747411547, guid: d8a70570d4f354c48b319aa390774a9d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492068602747411548, guid: d8a70570d4f354c48b319aa390774a9d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8a70570d4f354c48b319aa390774a9d, type: 3}
