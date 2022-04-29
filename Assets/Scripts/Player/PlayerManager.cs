@@ -9,13 +9,16 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
     public MovementScript mv;
     private static Timer aTimer;
+    private Vector2 lastDir;
 
+    RaycastHit2D _hit;
         //Stats
     public float moveSpeed = 100f;
     float maxHealth = 100;
     public float health;
     float damage = 100f;
     float money = 0;
+    float attackDistance = 2f;
 
     private void Awake()
     {
@@ -41,7 +44,7 @@ public class PlayerManager : MonoBehaviour
         aTimer.Elapsed += OnTimedEvent;
 
         aTimer.AutoReset = true;
-        //aTimer.Enabled = true;
+        aTimer.Enabled = true;
 
 
     }
@@ -50,7 +53,8 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+        if(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))!= new Vector2(0,0))
+            lastDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         mv.moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
         GameManager.instance.playerPosition = this.transform.position;
     }
@@ -61,7 +65,12 @@ public class PlayerManager : MonoBehaviour
 
     void Attack()
     {
-        Debug.Log("atakuje");
+        //basicAttack
+         _hit = Physics2D.Raycast(transform.position, new Vector2(lastDir.x, 0), attackDistance);
+        //new Raycast(transform.position, lastDir.x, attackDistance, null, null);
+        if (_hit.collider.CompareTag("Enemy"));
+            _hit.collider.gameObject.GetComponent<Enemy>().getDamage(damage);
+        Debug.Log(_hit.collider.gameObject.name);
 
 
     }
