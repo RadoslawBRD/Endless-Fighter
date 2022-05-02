@@ -10,10 +10,14 @@ public class EditorButton : Editor
         DrawDefaultInspector();
 
         GameManager myScript = (GameManager)target;
-        if (GUILayout.Button("Spawn"))
+        if (GUILayout.Button("Single Spawn"))
         {
-            myScript.CreateEnemy();
+            myScript.CreateEnemy(true);
+        }
+        GameManager myScript2 = (GameManager)target;
+        if (GUILayout.Button("Auto Spawn"))
+        {
+            myScript2.SwitchEnemySpawner();
         }
     }
-
 }
