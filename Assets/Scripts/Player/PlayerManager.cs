@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     float maxHealth = 100;
     public float health;
     float damage = 100f;
-    float money = 0;
+    private float cash = 0;
     float attackDistance = 2f;
 
     private void Awake()
@@ -32,7 +32,6 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-
     // Start is called before the first frame update
 
     void Start()
@@ -45,8 +44,6 @@ public class PlayerManager : MonoBehaviour
 
         aTimer.AutoReset = true;
         aTimer.Enabled = true;
-
-
     }
 
 
@@ -58,6 +55,7 @@ public class PlayerManager : MonoBehaviour
         mv.moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
         GameManager.instance.playerPosition = this.transform.position;
     }
+
     private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
     {
         Attack();
@@ -71,13 +69,21 @@ public class PlayerManager : MonoBehaviour
         if (_hit.collider.CompareTag("Enemy"));
             _hit.collider.gameObject.GetComponent<Enemy>().getDamage(damage);
         Debug.Log(_hit.collider.gameObject.name);
-
-
     }
+
     public void getDamage(float _value)
     {
         health -= _value;
     }
+    public void changeMoney(float _value)
+    {
+        if (_value < 0)
+            cash -= _value;
+        else
+            cash += _value;
+
+    }
+    
 
 
 
