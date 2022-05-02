@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     //Stats
     public float moveSpeed = 100f;
     public float health = 100f;
-    float damage = 100f;
+    float damage = 10f;
     float cashValue = 10f;
     float maximumAproachDistance = 0.5f;
     float attackRange;
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
         aTimer.AutoReset = true;
 
         id = nextId;
-        nextId++; 
+        nextId++;
         enemies.Add(id, this);
         rb = GetComponent<Rigidbody2D>();
 
@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
         {
             Attack();
         }*/
+
     }
     private void FixedUpdate()
     {
@@ -52,8 +53,8 @@ public class Enemy : MonoBehaviour
         //target = (GameManager.instance.playerPosition - (Vector2)transform.position).normalized;
 
         //transform.position = Vector2.MoveTowards(transform.position, GameManager.instance.playerPosition, 1f);
-        if(Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) > maximumAproachDistance)
-            rb.AddForce(WherePlayer(GameManager.instance.playerPosition)*-1 * moveSpeed * Time.fixedDeltaTime); // -1 bo nie chce mi siê odwracaæ return w WherePlayer
+        if (Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) > maximumAproachDistance)
+            rb.AddForce(WherePlayer(GameManager.instance.playerPosition) * -1 * moveSpeed * Time.fixedDeltaTime); // -1 bo nie chce mi siê odwracaæ return w WherePlayer
     }
 
     private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
@@ -75,18 +76,18 @@ public class Enemy : MonoBehaviour
     }
     void Attack()
     {
-        PlayerManager.instance.getDamage(10f);
+        PlayerManager.instance.getDamage(damage);
 
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             aTimer.Enabled = true;
         }
 
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         aTimer.Enabled = false;
 
@@ -94,5 +95,12 @@ public class Enemy : MonoBehaviour
     public void getDamage(float _value)
     {
         health -= _value;
+        if(health <= 0)
+        {
+            PlayerManager.instance.changeMoney(cashValue);
+        }
+
     }
 }
+    
+
