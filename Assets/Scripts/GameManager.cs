@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public GameObject enemyPrefab;
     public Vector2 playerPosition;
     private Vector2 possibleSpawn;
     private bool autoSpawn = false;
@@ -54,7 +53,7 @@ public class GameManager : MonoBehaviour
     }
     
 
-    public void CreateEnemy(bool _value)
+  /*  public void CreateEnemy(bool _value)
     {
         if(_value)
             Instantiate(enemyPrefab, new Vector2(Random.Range(-20f,20f), Random.Range(-9f, 9f)), Quaternion.identity);
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour
             Instantiate(enemyPrefab, possibleSpawn, Quaternion.identity);
 
         // enemies.Add(nextId, new Enemy(new Vector2(2f, 3f)));
-    }
+    }*/
 
     public void SwitchEnemySpawner()
     {
@@ -82,7 +81,7 @@ public class GameManager : MonoBehaviour
         Vector2 _possibleSpawn = new Vector2(Random.Range(-20f, 20f), Random.Range(-9f, 9f)); 
         Debug.Log(_possibleSpawn +" "+ Vector2.Distance(_playerpos, _possibleSpawn));
         if (Vector2.Distance(_playerpos, _possibleSpawn) > minSpawnDistance) {
-            CreateEnemy(false); //false /true okreœla Ÿród³o respienia przeciwnika
+            EnemyManager.instance.SpawnEnemy(possibleSpawn); //false /true okreœla Ÿród³o respienia przeciwnika
         }
         else
             SpawnEnemy();
