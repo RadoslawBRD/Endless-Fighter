@@ -12,7 +12,7 @@ public class EditorButton : Editor
         GameManager myScript = (GameManager)target;
         if (GUILayout.Button("Single Spawn"))
         {
-            myScript.CreateEnemy(true);
+            //myScript.CreateEnemy(true);
         }
         GameManager myScript2 = (GameManager)target;
         if (GUILayout.Button("Auto Spawn"))
