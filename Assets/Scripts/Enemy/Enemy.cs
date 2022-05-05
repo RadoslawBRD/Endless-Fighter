@@ -6,9 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
-    Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
     int id;
-    int nextId = 0;
     private Rigidbody2D rb;
     public Vector2 target;
     private static Timer aTimer;
@@ -22,25 +20,33 @@ public class Enemy : MonoBehaviour
     float attackRange;
     float attackSpeed = 1000f;
 
+    public Enemy(int _id)
+    {
+        id = _id;
+    }
     void Start()
     {
         //initial stat setup
+
         attackRange = maximumAproachDistance + 0.1f;
         aTimer = new System.Timers.Timer();
         aTimer.Interval = attackSpeed; //ms
         aTimer.Elapsed += OnTimedEvent;
         aTimer.AutoReset = true;
 
-        id = nextId;
-        nextId++;
-        enemies.Add(id, this);
-        rb = GetComponent<Rigidbody2D>();
+         EnemyManager.instance.enemies.Add(id, this);
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+
+        }
         /*if (Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) < attackRange)
         {
             Attack();
@@ -99,6 +105,7 @@ public class Enemy : MonoBehaviour
         {
             PlayerManager.instance.changeMoney(cashValue);
         }
+        Destroy(gameObject);
 
     }
 }
