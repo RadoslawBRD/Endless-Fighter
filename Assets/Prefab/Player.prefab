@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5916751499153221128}
   - component: {fileID: 5937640454461903667}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 8492068602747411549}
   - component: {fileID: 8492068602747411548}
   - component: {fileID: 6421623606124726074}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mv: {fileID: 5937640454461903667}
+  lastDir: {x: 0, y: 0}
   moveSpeed: 100
   health: 100
 --- !u!1 &8492068602822466927
@@ -194,7 +195,7 @@ GameObject:
   - component: {fileID: 8492068602822466834}
   - component: {fileID: 8492068602822466833}
   - component: {fileID: 8492068602822466832}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
