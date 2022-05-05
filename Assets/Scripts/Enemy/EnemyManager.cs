@@ -5,6 +5,26 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static EnemyManager instance;
+    //prefabs
+    public GameObject basicEnemyPrefab;
+
+
+    public Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
+    int id;
+    int nextId = 0;
+     
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+        {
+            Debug.Log("instance already exists, destroying object!");
+            Destroy(this);
+        }
+    }
     void Start()
     {
         
@@ -14,5 +34,15 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SpawnEnemy(Vector2 _possibleSpawn )
+    {
+
+        id = nextId;
+        nextId++;
+
+        Instantiate(basicEnemyPrefab, _possibleSpawn, Quaternion.identity);
+
     }
 }
