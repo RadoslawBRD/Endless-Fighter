@@ -8,8 +8,9 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
     public MovementScript mv;
-    private static Timer aTimer;
-    private Vector2 lastDir;
+    public Vector2 lastDir;
+    private float tempTime;
+
 
     RaycastHit2D _hit;
         //Stats
@@ -19,6 +20,8 @@ public class PlayerManager : MonoBehaviour
     float damage = 100f;
     private float cash = 0;
     float attackDistance = 2f;
+    float attackSpeed = 1f;
+
 
     private void Awake()
     {
@@ -37,13 +40,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         health = maxHealth;
-
-        aTimer = new System.Timers.Timer();
-        aTimer.Interval = 2000; //ms
-        aTimer.Elapsed += OnTimedEvent;
-
-        aTimer.AutoReset = true;
-        aTimer.Enabled = true;
+       // Physics2D.IgnoreLayerCollision(9, 10);
     }
 
 
@@ -54,21 +51,31 @@ public class PlayerManager : MonoBehaviour
             lastDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         mv.moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
         GameManager.instance.playerPosition = this.transform.position;
-    }
 
-    private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
-    {
-        Attack();
+        if (true)
+        {
+            tempTime += Time.fixedDeltaTime;
+            if (tempTime > attackSpeed)
+            {
+                tempTime = 0f;
+                Attack();
+            }
+        }
     }
 
     void Attack()
     {
         //basicAttack
-         _hit = Physics2D.Raycast(transform.position, new Vector2(lastDir.x, 0), attackDistance);
+        _hit = Physics2D.Raycast(transform.position, new Vector2(lastDir.x, 0), attackDistance);
+        //Debug.DrawLine(transform.position, new Vector2(lastDir.x, 0), Color.red, 5f);
+        Debug.DrawRay(transform.position, new Vector2(lastDir.x, 0) * 2, Color.red, 1f);
         //new Raycast(transform.position, lastDir.x, attackDistance, null, null);
-        if (_hit.collider.CompareTag("Enemy"));
-            _hit.collider.gameObject.GetComponent<Enemy>().getDamage(damage);
-        Debug.Log(_hit.collider.gameObject.name);
+        if (_hit.collider != null) { 
+            if (_hit.collider.CompareTag("Enemy"))
+                _hit.collider.gameObject.GetComponent<Enemy>().getDamage(damage);
+            Debug.Log(_hit.collider.gameObject.name);
+        }
+        
     }
 
     public void getDamage(float _value)
