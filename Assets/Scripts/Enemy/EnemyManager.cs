@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
 
 
     public Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
-    int id;
+    public int id;
     int nextId = 0;
      
 

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private Vector2 possibleSpawn;
     private bool autoSpawn = false;
     private float tempTime;
-    private float minSpawnDistance = 10f;
+    private float minSpawnDistance = 15f;
     //game stats///
     float spawnRate = 1f; //1 sekunda
 

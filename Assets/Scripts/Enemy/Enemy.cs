@@ -9,32 +9,27 @@ public class Enemy : MonoBehaviour
     int id;
     private Rigidbody2D rb;
     public Vector2 target;
-    private static Timer aTimer;
+    private bool autoAttack = false;
 
     //Stats
     public float moveSpeed = 100f;
     public float health = 100f;
     float damage = 10f;
     float cashValue = 10f;
-    float maximumAproachDistance = 0.5f;
+    float maximumAproachDistance = 0.1f;
+
     float attackRange;
     float attackSpeed = 1000f;
+    private float tempTime;
 
-    public Enemy(int _id)
-    {
-        id = _id;
-    }
+    
     void Start()
     {
         //initial stat setup
-
+        id = EnemyManager.instance.id;
         attackRange = maximumAproachDistance + 0.1f;
-        aTimer = new System.Timers.Timer();
-        aTimer.Interval = attackSpeed; //ms
-        aTimer.Elapsed += OnTimedEvent;
-        aTimer.AutoReset = true;
-
-         EnemyManager.instance.enemies.Add(id, this);
+        
+        EnemyManager.instance.enemies.Add(id, this);
 
 
     }
@@ -55,18 +50,30 @@ public class Enemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
+        if (autoAttack)
+        {
+            tempTime += Time.fixedDeltaTime;
+            if (tempTime > attackSpeed)
+            {
+                tempTime = 0f;
+                Attack();
+            }
+        }
         //target = (GameManager.instance.playerPosition - (Vector2)transform.position).normalized;
 
         //transform.position = Vector2.MoveTowards(transform.position, GameManager.instance.playerPosition, 1f);
-        if (Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) > maximumAproachDistance)
-            rb.AddForce(WherePlayer(GameManager.instance.playerPosition) * -1 * moveSpeed * Time.fixedDeltaTime); // -1 bo nie chce mi siê odwracaæ return w WherePlayer
+        try
+        {
+            if (Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) > maximumAproachDistance)
+                rb.AddForce(WherePlayer(GameManager.instance.playerPosition) * -1 * moveSpeed * Time.fixedDeltaTime); // -1 bo nie chce mi siê odwracaæ return w WherePlayer
+        }
+        catch
+        {
+            Debug.LogError("Problem z RigidBody: "+ id);
+        }
     }
 
-    private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
-    {
-        Attack();
-    }
+    
     private Vector2 WherePlayer(Vector2 _playerPosition)
     {
         if (this.transform.position.x >= _playerPosition.x && this.transform.position.y >= _playerPosition.y)
@@ -89,13 +96,13 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            aTimer.Enabled = true;
+            autoAttack = true;
         }
 
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        aTimer.Enabled = false;
+        autoAttack = false;
 
     }
     public void getDamage(float _value)
@@ -104,8 +111,10 @@ public class Enemy : MonoBehaviour
         if(health <= 0)
         {
             PlayerManager.instance.changeMoney(cashValue);
+            EnemyManager.instance.enemies.Remove(id);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        
 
     }
 }
