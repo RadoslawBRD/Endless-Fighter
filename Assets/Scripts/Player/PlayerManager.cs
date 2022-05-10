@@ -15,12 +15,13 @@ public class PlayerManager : MonoBehaviour
     RaycastHit2D _hit;
         //Stats
     public float moveSpeed = 100f;
-    float maxHealth = 100;
+    public float maxHealth = 100;
     public float health;
     float damage = 100f;
     private float cash = 0;
     float attackDistance = 2f;
     float attackSpeed = 1f;
+    float exp = 0;
 
 
     private void Awake()
@@ -40,6 +41,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        HealthBar.instance.updateMaxHp(maxHealth);
        // Physics2D.IgnoreLayerCollision(9, 10);
     }
 
@@ -54,7 +56,7 @@ public class PlayerManager : MonoBehaviour
 
         if (true)
         {
-            tempTime += Time.fixedDeltaTime;
+            tempTime += Time.deltaTime;
             if (tempTime > attackSpeed)
             {
                 tempTime = 0f;
@@ -81,6 +83,7 @@ public class PlayerManager : MonoBehaviour
     public void getDamage(float _value)
     {
         health -= _value;
+        UpdateHealth();
     }
     public void changeMoney(float _value)
     {
@@ -89,6 +92,15 @@ public class PlayerManager : MonoBehaviour
         else
             cash += _value;
 
+    }
+    public void UpdateHealth()
+    {
+        HealthBar.instance.SetHealth(health);
+    }
+
+    public void addExp(float _value) //wraz z expem roœnie poziom trudnoœci przeciwników!
+    {
+        exp += _value;
     }
     
 
