@@ -16,11 +16,12 @@ public class Enemy : MonoBehaviour
     public float health = 100f;
     float damage = 10f;
     float cashValue = 10f;
+    float expValue = 10f;
     float maximumAproachDistance = 0.1f;
 
     float attackRange;
-    float attackSpeed = 1000f;
-    private float tempTime;
+    public float attackSpeed = 15f;
+    public float tempTime;
 
     
     void Start()
@@ -53,7 +54,7 @@ public class Enemy : MonoBehaviour
         if (autoAttack)
         {
             tempTime += Time.fixedDeltaTime;
-            if (tempTime > attackSpeed)
+            if (tempTime*10 > attackSpeed)
             {
                 tempTime = 0f;
                 Attack();
@@ -90,27 +91,22 @@ public class Enemy : MonoBehaviour
     void Attack()
     {
         PlayerManager.instance.getDamage(damage);
+        Debug.Log("Atakuje");
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void SetAutoAttack(bool _value)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            autoAttack = true;
-        }
-
+        autoAttack = _value;
     }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        autoAttack = false;
-
-    }
+   
     public void getDamage(float _value)
     {
         health -= _value;
         if(health <= 0)
         {
             PlayerManager.instance.changeMoney(cashValue);
+            PlayerManager.instance.addExp(expValue);
+
             EnemyManager.instance.enemies.Remove(id);
             Destroy(gameObject);
         }
