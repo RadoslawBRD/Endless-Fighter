@@ -6,9 +6,12 @@ public class EnemyManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public static EnemyManager instance;
+
     //prefabs
     public GameObject basicEnemyPrefab;
 
+
+    public bool canEnemyMove = true;
 
     public Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
     public int id;
@@ -44,5 +47,9 @@ public class EnemyManager : MonoBehaviour
 
         Instantiate(basicEnemyPrefab, _possibleSpawn, Quaternion.identity);
 
+    }
+    public void changeCanEnemyMove()
+    {
+        canEnemyMove = !canEnemyMove;
     }
 }

@@ -65,8 +65,9 @@ public class Enemy : MonoBehaviour
         //transform.position = Vector2.MoveTowards(transform.position, GameManager.instance.playerPosition, 1f);
         try
         {
-            if (Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) > maximumAproachDistance)
-                rb.AddForce(WherePlayer(GameManager.instance.playerPosition) * -1 * moveSpeed * Time.fixedDeltaTime); // -1 bo nie chce mi siê odwracaæ return w WherePlayer
+            if(EnemyManager.instance.canEnemyMove)
+                if (Vector2.Distance(GameManager.instance.playerPosition, this.transform.position) > maximumAproachDistance)
+                    rb.AddForce(WherePlayer(GameManager.instance.playerPosition) * -1 * moveSpeed * Time.fixedDeltaTime); // -1 bo nie chce mi siê odwracaæ return w WherePlayer
         }
         catch
         {
@@ -98,6 +99,7 @@ public class Enemy : MonoBehaviour
     {
         autoAttack = _value;
     }
+    
    
     public void getDamage(float _value)
     {

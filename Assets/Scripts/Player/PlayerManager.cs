@@ -21,7 +21,8 @@ public class PlayerManager : MonoBehaviour
     private float cash = 0;
     float attackDistance = 2f;
     float attackSpeed = 1f;
-    float exp = 0;
+    public float exp = 0;
+    float level = 0;
 
 
     private void Awake()
@@ -97,10 +98,26 @@ public class PlayerManager : MonoBehaviour
     {
         HealthBar.instance.SetHealth(health);
     }
+    public void UpdateExp()
+    {
+        ExpBar.instance.SetExp(exp);
+    }
 
     public void addExp(float _value) //wraz z expem roœnie poziom trudnoœci przeciwników!
     {
         exp += _value;
+        UpdateExp();
+        if (exp >= 100f)
+            addLevel();
+    }
+    public void addLevel()
+    {
+        EnemyManager.instance.changeCanEnemyMove();
+        exp = 0;
+        level++;
+        UpdateExp();
+        HudManager.instance.changeLevelUpScreenVisibility();
+        Debug.Log("Osi¹gniety lvl: " +level);
     }
     
 
