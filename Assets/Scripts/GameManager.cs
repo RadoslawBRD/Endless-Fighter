@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         Vector2 _possibleSpawn = new Vector2(Random.Range(-20f, 20f), Random.Range(-9f, 9f)); 
         Debug.Log(_possibleSpawn +" "+ Vector2.Distance(_playerpos, _possibleSpawn));
         if (Vector2.Distance(_playerpos, _possibleSpawn) > minSpawnDistance) {
-            EnemyManager.instance.SpawnEnemy(possibleSpawn); //false /true okreœla Ÿród³o respienia przeciwnika
+            EnemyManager.instance.SpawnEnemy(_possibleSpawn); //false /true okreœla Ÿród³o respienia przeciwnika
         }
         else
             SpawnEnemy();
