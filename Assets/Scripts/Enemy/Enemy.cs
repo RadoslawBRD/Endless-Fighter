@@ -91,7 +91,7 @@ public class Enemy : MonoBehaviour
     }
     void Attack()
     {
-        PlayerManager.instance.getDamage(damage);
+        PlayerManager.instance.GetDamage(damage);
         Debug.Log("Atakuje");
 
     }
@@ -106,8 +106,8 @@ public class Enemy : MonoBehaviour
         health -= _value;
         if(health <= 0)
         {
-            PlayerManager.instance.changeMoney(cashValue);
-            PlayerManager.instance.addExp(expValue);
+            PlayerManager.instance.ChangeMoney(cashValue);
+            PlayerManager.instance.AddExp(expValue);
 
             EnemyManager.instance.enemies.Remove(id);
             Destroy(gameObject);

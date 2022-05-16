@@ -48,7 +48,7 @@ public class EnemyManager : MonoBehaviour
         Instantiate(basicEnemyPrefab, _possibleSpawn, Quaternion.identity);
 
     }
-    public void changeCanEnemyMove()
+    public void ChangeCanEnemyMove()
     {
         canEnemyMove = !canEnemyMove;
     }

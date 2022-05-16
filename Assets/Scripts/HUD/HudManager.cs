@@ -48,11 +48,11 @@ public class HudManager : MonoBehaviour
     {
         
     }
-    public void changePlayerScreenVisibility()
+    public void ChangePlayerScreenVisibility()
     {
         playerScreen.GetComponent<Canvas>().enabled = !playerScreen.GetComponent<Canvas>().enabled;
     }
-    public void changeLevelUpScreenVisibility()
+    public void ChangeLevelUpScreenVisibility()
     {
         levelUpScreen.GetComponent<Canvas>().enabled = !levelUpScreen.GetComponent<Canvas>().enabled;        
     }

@@ -26,27 +26,28 @@ public class SkillsManager : MonoBehaviour
     public void onClickSkill1()
     {
         Debug.Log("guzik1");
-        goBackToNormalGameplay();
-
-
+        GoBackToNormalGameplay();
     }
     public void onClickSkill2()
     {
         Debug.Log("guzik2");
-        goBackToNormalGameplay();
-
-
-
+        GoBackToNormalGameplay();
     }
     public void onClickSkill3()
     {
         Debug.Log("guzik3");
-        goBackToNormalGameplay();
+        GoBackToNormalGameplay();
+    }
+    public void GoBackToNormalGameplay()
+    {
+        HudManager.instance.ChangeLevelUpScreenVisibility();
+        EnemyManager.instance.ChangeCanEnemyMove();
+    }
+
+    public void SelectSkillForButton(Button btn)
+    {
 
     }
-    public void goBackToNormalGameplay()
-    {
-        HudManager.instance.changeLevelUpScreenVisibility();
-        EnemyManager.instance.changeCanEnemyMove();
-    }
+
+
 }
