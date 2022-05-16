@@ -9,21 +9,31 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
     public MovementScript mv;
     public Vector2 lastDir;
-    private float tempTime;
-
-
     RaycastHit2D _hit;
-        //Stats
+
+
+    private float timeAttack = 0;
+    private float timeRegen = 0;
+
+    public float health;
+    float level = 0;
+    public float exp = 0;
+    private float cash = 0;
+
+
+    //Stats
     public float moveSpeed = 100f;
     public float maxHealth = 100;
-    public float health;
-    float damage = 100f;
-    private float cash = 0;
-    float attackDistance = 2f;
-    float attackSpeed = 1f;
-    public float exp = 0;
-    float level = 0;
+    public float healthRegen = 0.05f;
+    public float healthRegenRate = 2f;
 
+
+    public float basicDamage = 100f;
+    public float basicAttackRange= 2f;
+    public float basicAttackSpeed = 1f;
+
+
+    
 
     private void Awake()
     {
@@ -57,11 +67,18 @@ public class PlayerManager : MonoBehaviour
 
         if (true)
         {
-            tempTime += Time.deltaTime;
-            if (tempTime > attackSpeed)
+            timeAttack += Time.deltaTime;
+            timeRegen += Time.deltaTime;
+
+            if (timeAttack > basicAttackSpeed)
             {
-                tempTime = 0f;
+                timeAttack = 0f;
                 Attack();
+            }
+            if(timeRegen > healthRegenRate)
+            {
+                timeRegen = 0f;
+                HealthRegen();
             }
         }
     }
@@ -69,24 +86,24 @@ public class PlayerManager : MonoBehaviour
     void Attack()
     {
         //basicAttack
-        _hit = Physics2D.Raycast(transform.position, new Vector2(lastDir.x, 0), attackDistance);
+        _hit = Physics2D.Raycast(transform.position, new Vector2(lastDir.x, 0), basicAttackRange);
         //Debug.DrawLine(transform.position, new Vector2(lastDir.x, 0), Color.red, 5f);
         Debug.DrawRay(transform.position, new Vector2(lastDir.x, 0) * 2, Color.red, 1f);
         //new Raycast(transform.position, lastDir.x, attackDistance, null, null);
         if (_hit.collider != null) { 
             if (_hit.collider.CompareTag("Enemy"))
-                _hit.collider.gameObject.GetComponent<Enemy>().getDamage(damage);
+                _hit.collider.gameObject.GetComponent<Enemy>().getDamage(basicDamage);
             Debug.Log(_hit.collider.gameObject.name);
         }
         
     }
 
-    public void getDamage(float _value)
+    public void GetDamage(float _value)
     {
         health -= _value;
         UpdateHealth();
     }
-    public void changeMoney(float _value)
+    public void ChangeMoney(float _value)
     {
         if (_value < 0)
             cash -= _value;
@@ -103,23 +120,31 @@ public class PlayerManager : MonoBehaviour
         ExpBar.instance.SetExp(exp);
     }
 
-    public void addExp(float _value) //wraz z expem roœnie poziom trudnoœci przeciwników!
+    public void AddExp(float _value) //wraz z expem roœnie poziom trudnoœci przeciwników!
     {
         exp += _value;
         UpdateExp();
         if (exp >= 100f)
-            addLevel();
+            AddLevel();
     }
-    public void addLevel()
+    public void AddLevel()
     {
-        EnemyManager.instance.changeCanEnemyMove();
+        EnemyManager.instance.ChangeCanEnemyMove();
         exp = 0;
         level++;
         UpdateExp();
-        HudManager.instance.changeLevelUpScreenVisibility();
+        HudManager.instance.ChangeLevelUpScreenVisibility();
         Debug.Log("Osi¹gniety lvl: " +level);
     }
     
+    public void HealthRegen()
+    {
+        if(health<maxHealth)
+            health += healthRegen;
+
+        if (health > maxHealth)        
+            health = maxHealth;        
+    }
 
 
 
