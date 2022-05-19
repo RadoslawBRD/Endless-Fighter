@@ -294,6 +294,7 @@ GameObject:
   - component: {fileID: 174539941}
   - component: {fileID: 174539940}
   - component: {fileID: 174539939}
+  - component: {fileID: 174539943}
   m_Layer: 0
   m_Name: LevelUpScreen
   m_TagString: Untagged
@@ -399,6 +400,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &174539943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174539937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47cbb2024fc48a4e9c948db48f4f82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueMultiplier: 0.05
 --- !u!1 &184370069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,6 +1960,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6421623606124726074, guid: d8a70570d4f354c48b319aa390774a9d, type: 3}
+      propertyPath: expModifier
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8492068602747411520, guid: d8a70570d4f354c48b319aa390774a9d, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2349,7 +2367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44313726, g: 0.5803922, b: 0.69803923, a: 0.83137256}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.83137256}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3138,7 +3156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44313726, g: 0.5803922, b: 0.69803923, a: 0.83137256}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.83137256}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3566,7 +3584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44455323, g: 0.57962763, b: 0.6981132, a: 0.83137256}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.83137256}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -5,18 +5,38 @@ using UnityEngine;
 public class SkillModifiers : MonoBehaviour
 {
     public static SkillModifiers instance;
-    float valueMultiplier = 0.05f;
+    public Dictionary<int, string> skillTable = new Dictionary<int, string>();
+    public float valueMultiplier = 0.05f;
     // Start is called before the first frame update
     void Start()
     {
         try
         {
+            #region skillTable fill
+            skillTable.Add(0, "MaxHealth");
+            skillTable.Add(1, "MoveSpeed");
+            skillTable.Add(2, "BasicAttackSpeed");
+            skillTable.Add(3, "AddDamage");
+            skillTable.Add(4, "BasicAttackRange");
+            skillTable.Add(5, "HpRegen");
+            skillTable.Add(6, "HpRegenRate");
+            //skillTable.Add(7, "Health");
+            //skillTable.Add(8, "Health");
+            //skillTable.Add(9, "Health");
+
+
+            //expReward
+            //skillValueMultiplier
+
+
+            #endregion
+
             Debug.Log("SkillModifiers enabled properly");
 
         }
         catch (System.Exception e)
         {
-            Debug.Log("Hud not enabled!!" + e.Message);
+            Debug.Log("SkillModifiers not enabled!!" + e.Message);
 
         }
 
@@ -53,7 +73,8 @@ public class SkillModifiers : MonoBehaviour
         {
             case 1:
                 AddMaxHealth(_value);
-                return "AddMaxHealth";
+                //return new string[] { "AddMaxHealth" };
+                return "AddMaxHealth" ;
                 break;
             case 2:
                 AddMoveSpeed(_value);
@@ -92,7 +113,34 @@ public class SkillModifiers : MonoBehaviour
         }
         Debug.Log("Skill numer: "+ _modifier+ " wartosci: "+ _value);
     }
+    public string GetSkillData(int _modifier)
+    {
+        switch (_modifier)
+        {
+            case 1:
+                return PlayerManager.instance.maxHealth.ToString();
+            case 2:
+                return PlayerManager.instance.moveSpeed.ToString();
+            case 3:
+                return PlayerManager.instance.basicAttackSpeed.ToString();
+            case 4:
+                return PlayerManager.instance.basicDamage.ToString();
+            case 5:
+                return PlayerManager.instance.basicAttackRange.ToString();
+            case 6:
+                return PlayerManager.instance.healthRegen.ToString();
+            case 7:
+                return PlayerManager.instance.healthRegenRate.ToString();
+            case 8:
+                return "";
+            case 9:
+                return "";
+            default:
+                return "";
 
+        }
+        Debug.Log("Dane skilla numer: " + _modifier);
+    }
 
 
 }
