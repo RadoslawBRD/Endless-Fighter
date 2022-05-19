@@ -51,9 +51,13 @@ public class HudManager : MonoBehaviour
     public void ChangePlayerScreenVisibility()
     {
         playerScreen.GetComponent<Canvas>().enabled = !playerScreen.GetComponent<Canvas>().enabled;
+        PlayerManager.instance.gameIsRunning = !PlayerManager.instance.gameIsRunning;
+
     }
     public void ChangeLevelUpScreenVisibility()
     {
-        levelUpScreen.GetComponent<Canvas>().enabled = !levelUpScreen.GetComponent<Canvas>().enabled;        
+        levelUpScreen.GetComponent<Canvas>().enabled = !levelUpScreen.GetComponent<Canvas>().enabled;
+        PlayerManager.instance.gameIsRunning = !PlayerManager.instance.gameIsRunning;
+
     }
 }

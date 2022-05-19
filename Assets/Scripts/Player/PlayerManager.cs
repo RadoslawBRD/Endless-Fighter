@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
     float level = 0;
     public float exp = 0;
     private float cash = 0;
-
+    public bool gameIsRunning = true;
 
     //Stats
     public float moveSpeed = 100f;
@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour
     public float basicAttackRange= 2f;
     public float basicAttackSpeed = 1f;
 
+    public float expModifier = 1f;
+    public float nextLevelTarget = 100f;
 
     
 
@@ -65,7 +67,7 @@ public class PlayerManager : MonoBehaviour
         mv.moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
         GameManager.instance.playerPosition = this.transform.position;
 
-        if (true)
+        if (gameIsRunning)
         {
             timeAttack += Time.deltaTime;
             timeRegen += Time.deltaTime;
@@ -100,7 +102,8 @@ public class PlayerManager : MonoBehaviour
 
     public void GetDamage(float _value)
     {
-        health -= _value;
+        if(gameIsRunning)
+            health -= _value;
         UpdateHealth();
     }
     public void ChangeMoney(float _value)
@@ -122,9 +125,9 @@ public class PlayerManager : MonoBehaviour
 
     public void AddExp(float _value) //wraz z expem roœnie poziom trudnoœci przeciwników!
     {
-        exp += _value;
+        exp += _value * expModifier;
         UpdateExp();
-        if (exp >= 100f)
+        if (exp >= nextLevelTarget)
             AddLevel();
     }
     public void AddLevel()
@@ -134,6 +137,8 @@ public class PlayerManager : MonoBehaviour
         level++;
         UpdateExp();
         HudManager.instance.ChangeLevelUpScreenVisibility();
+        SkillsManager.instance.SelectSkillForButton();
+
         Debug.Log("Osi¹gniety lvl: " +level);
     }
     
