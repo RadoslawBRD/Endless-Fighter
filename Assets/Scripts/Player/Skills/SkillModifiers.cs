@@ -36,7 +36,7 @@ public class SkillModifiers : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.Log("SkillModifiers not enabled!!" + e.Message);
+            Debug.LogError("SkillModifiers not enabled!!" + e.Message);
 
         }
 
@@ -75,41 +75,30 @@ public class SkillModifiers : MonoBehaviour
                 AddMaxHealth(_value);
                 //return new string[] { "AddMaxHealth" };
                 return "AddMaxHealth" ;
-                break;
             case 2:
                 AddMoveSpeed(_value);
                 return "AddMoveSpeed";
-                break;
             case 3:
                 AddBasicAttackSpeed(_value);
                 return "AddBasicAttackSpeed";
-                break;
             case 4:
                 AddDamage(_value);
                 return "AddDamage";
-                break;
             case 5:
                 AddBasicAttackRange(_value);
                 return "AddBasicAttackRange";
-                break;
             case 6:
                 IncreaseHpRegen(_value);
                 return "IncreaseHpRegen";
-                break;
             case 7:
                 IncreaseHpRegenRate(_value);
                 return "IncreaseHpRegenRate";
-                break;
             case 8:
                 return "";
-                break;
             case 9:
                 return "";
-                break;
             default:
                 return "";
-                break;
-
         }
         Debug.Log("Skill numer: "+ _modifier+ " wartosci: "+ _value);
     }

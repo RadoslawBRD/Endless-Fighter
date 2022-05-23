@@ -31,7 +31,7 @@ public class SkillsManager : MonoBehaviour
         }
         catch(Exception e)
         {
-            Debug.Log("Skill Manager had proboelms: "+e.ToString());
+            Debug.LogError("Skill Manager had proboelms: "+e.ToString());
         }
     }
     private void Awake()

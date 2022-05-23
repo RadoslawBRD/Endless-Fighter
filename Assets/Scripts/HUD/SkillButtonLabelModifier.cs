@@ -19,7 +19,7 @@ public class SkillButtonLabelModifier : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("Skill Manager had proboelms: " + e.ToString());
+            Debug.LogError("Skill Manager had proboelms: " + e.ToString());
         }
     }
 
