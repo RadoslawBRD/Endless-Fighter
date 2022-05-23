@@ -69,6 +69,8 @@ public class AbilitiesManager : MonoBehaviour
             AbilityHolder.instance.abilities[0].isActive = true;
             HudManager.instance.ChangeAbilitiesScreenVisibility();
             buttonAbility1.enabled = false;
+            EnemyManager.instance.ChangeCanEnemyMove();
+
         }
     }
     
