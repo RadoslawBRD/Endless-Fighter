@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //druga opcja ciaglego spawnu co minute;
-        if (autoSpawn)
+        if (autoSpawn && PlayerManager.instance.gameIsRunning)
         {
             tempTime += Time.deltaTime;
             if (tempTime > spawnRate)
