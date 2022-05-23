@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     float maximumAproachDistance = 0.1f;
 
     float attackRange;
-    public float attackSpeed = 15f;
+    public float attackSpeed = 10f;
     public float tempTime;
 
     
@@ -98,6 +98,7 @@ public class Enemy : MonoBehaviour
     public void SetAutoAttack(bool _value)
     {
         autoAttack = _value;
+        tempTime = 10000f;
     }
     
    
