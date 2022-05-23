@@ -58,7 +58,15 @@ public class PlayerManager : MonoBehaviour
        // Physics2D.IgnoreLayerCollision(9, 10);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            HudManager.instance.ChangeAbilitiesScreenVisibility();
+            EnemyManager.instance.ChangeCanEnemyMove();
 
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -106,13 +114,14 @@ public class PlayerManager : MonoBehaviour
             health -= _value;
         UpdateHealth();
     }
+    public float GetMoney() => cash;
     public void ChangeMoney(float _value)
     {
         if (_value < 0)
             cash -= _value;
         else
             cash += _value;
-
+        CashDisplay.instance.UpdateCashDisplay(cash);
     }
     public void UpdateHealth()
     {
