@@ -11,7 +11,7 @@ public class HudManager : MonoBehaviour
 
     public GameObject playerScreen;
     public GameObject levelUpScreen;
-
+    public GameObject abilitiesScreen;
 
 
 
@@ -37,7 +37,7 @@ public class HudManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.Log("Hud not enabled!!"+ e.Message);
+            Debug.LogError("Hud not enabled!!"+ e.Message);
 
         }
         
@@ -58,6 +58,13 @@ public class HudManager : MonoBehaviour
     {
         levelUpScreen.GetComponent<Canvas>().enabled = !levelUpScreen.GetComponent<Canvas>().enabled;
         PlayerManager.instance.gameIsRunning = !PlayerManager.instance.gameIsRunning;
-
+    }
+    public void ChangeAbilitiesScreenVisibility()
+    {
+        if (!levelUpScreen.GetComponent<Canvas>().enabled)
+        {
+            abilitiesScreen.GetComponent<Canvas>().enabled = !abilitiesScreen.GetComponent<Canvas>().enabled;
+            PlayerManager.instance.gameIsRunning = !PlayerManager.instance.gameIsRunning;
+        }
     }
 }

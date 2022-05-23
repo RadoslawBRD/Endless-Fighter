@@ -26,7 +26,17 @@ public class ExpBar : MonoBehaviour
     void Start()
     {
 
-        Debug.Log("ExpBar Created!!!");
+        
+        try
+        {
+            expDisplay.value = 0;
+            Debug.Log("ExpBar Created!!!");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("ExpBar not enabled!!" + e.Message);
+
+        }
     }
 
     // Update is called once per frame

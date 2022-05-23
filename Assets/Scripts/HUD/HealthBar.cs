@@ -23,8 +23,17 @@ public class HealthBar : MonoBehaviour
     }
     private void Start()
     {
-        currentHP = maxHp;
-        Debug.Log("HeathBar Created!!!");
+        try
+        {
+            currentHP = maxHp;
+            Debug.Log("HeathBar Created!!!");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("HeathBar not enabled!!" + e.Message);
+
+        }
+        
     }
 
     public void SetHealth(float _health)
