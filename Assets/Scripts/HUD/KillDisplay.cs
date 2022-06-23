@@ -8,6 +8,7 @@ public class KillDisplay : MonoBehaviour
 {
     public static KillDisplay instance;
     public GameObject killValue;
+    private int killCount = 0;
     // Start is called before the first frame update
 
     private void Awake()
@@ -24,7 +25,7 @@ public class KillDisplay : MonoBehaviour
     {
         try
         {
-            killValue.gameObject.GetComponentInChildren<Text>().text = "0";
+            killValue.gameObject.GetComponentInChildren<Text>().text = killCount.ToString();
             Debug.Log("KillDisplay enabled properly");
         }
         catch (System.Exception e)
@@ -39,8 +40,13 @@ public class KillDisplay : MonoBehaviour
     {
         
     }
-    public void UpdateKillDisplay(float _currentCash)
+    public void UpdateKillDisplay(float _value)
     {
-        killValue.gameObject.GetComponentInChildren<Text>().text = _currentCash.ToString();
+        killValue.gameObject.GetComponentInChildren<Text>().text = _value.ToString();
+    }
+    public void UpdateKillCount()
+    {
+        killCount++;
+        UpdateKillDisplay(killCount);
     }
 }

@@ -111,6 +111,7 @@ public class Enemy : MonoBehaviour
             PlayerManager.instance.AddExp(expValue);
 
             EnemyManager.instance.enemies.Remove(id);
+            KillDisplay.instance.UpdateKillCount();
             Destroy(gameObject);
         }
         
